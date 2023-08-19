@@ -1,0 +1,59 @@
+// Pequeno sistema PDV
+package Java;
+
+// Pequeno sistema de PDV em java.
+
+import java.util.Scanner;
+
+public class PontodeVenda { //Classe principal
+    public static void main(String[] args) {
+        String[] produtos = {"Coalho", "Mussarela", "Nata", "Pudim"};// Array com produtos
+        int[] valor = {5, 10, 4, 2};// Array com valor dos produtos
+
+        escolhaProduto(produtos, valor);
+
+    }
+
+    public static void valorCompra(int[] valores) {
+        int total = 0;
+        for (int valor: valores) {
+            total += valor;
+        }
+        System.out.println("Valor Total: " + total);
+    }
+
+    public static void escolhaProduto(String[] produto, int[] valores) {
+        Scanner scanner = new Scanner(System.in);
+        int mais = 0;
+        int[] produtoEscolhido = new int[produto.length];
+
+        do {
+            for (int i = 0; i < produto.length; i++) {
+                System.out.println( i + 1 + " . " + produto[i] + " - R$" + valores[i]);
+            }
+
+            System.out.println("Digiti o código do produto: ");
+            int escolha = scanner.nextInt();
+            produtoEscolhido[escolha - 1] = 1;
+
+            System.out.println("Desejar escolher mais intens? ( 1 - sim / 0 - não): ");
+            mais = scanner.nextInt();
+        } while (mais == 1);
+
+        int[] valorEscolhido = new int[produto.length];
+        for (int i = 0; i < produto.length; i++) {
+            valorEscolhido[i] = produtoEscolhido[i] * valores[i];
+        }
+
+        System.out.println("Produtos escolhidos e valor: ");
+        for (int i = 0; i < produto.length; i++) {
+            if (produtoEscolhido[i] == 1) {
+                System.out.println(produto[i] + " - R$" + valorEscolhido[i]);
+            }
+        }
+
+        valorCompra(valorEscolhido);
+
+        scanner.close();
+}
+}
